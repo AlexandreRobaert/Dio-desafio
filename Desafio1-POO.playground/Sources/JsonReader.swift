@@ -8,10 +8,10 @@ public enum FetchError: Error {
 
 public enum JsonReader {
     public static func fetch<T: Codable>(file name: String) async throws -> T {
-        guard let path = Bundle.main.path(forResource: name, ofType: "json") else {
+        guard let url = Bundle.main.url(forResource: name, withExtension: "json") else {
             throw FetchError.notFound
         }
-        guard let data = path.data(using: .utf8) else {
+        guard let data = try? Data(contentsOf: url) else {
             throw FetchError.invalidData
         }
         do {

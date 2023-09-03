@@ -4,9 +4,9 @@ class Integrator {
     var shapes: [Shape] = []
     
     func getSquare() async throws -> [Square] {
-        let squares: SquaresResponse = try await JsonReader.fetch(file: "squares")
-        self.shapes = squares.squares
-        return squares.squares
+        let squares: [Square] = try await JsonReader.fetch(file: "squares")
+        self.shapes = squares
+        return squares
     }
     
     func addCubes(_ cubes: [Cube]) {
@@ -24,9 +24,9 @@ class Main {
     public func start() {
         Task {
             do {
-//                try await integrator.getSquare()
+                try await integrator.getSquare()
+                self.getMinorSquareAndShow()
                 self.addCubesInIntegrator()
-                print("O menor quadrado tem: \(self.getMinorSquareAndShow().size)")
                 self.callPlayCubes()
             } catch FetchError.notFound {
                 print("Arquivo JSON não encontrado")
@@ -38,15 +38,17 @@ class Main {
         }
     }
     
-    private func getMinorSquareAndShow() -> Square {
+    private func getMinorSquareAndShow() {
         var squareCurrent: Square = .init(size: Double.infinity)
         integrator.shapes.forEach { shape in
-            if let square = shape as? Square, squareCurrent.size > square.size {
+            if let square = shape as? Square {
+                if squareCurrent.size > square.size {
+                    squareCurrent = square
+                }
                 print("Quadrado de \(square.size) X \(square.size)")
-                squareCurrent = square
             }
         }
-        return squareCurrent
+        print("O menor Quadrado tem \(squareCurrent.size) X \(squareCurrent.size) com \(squareCurrent.calculateArea()) M²")
     }
     
     private func addCubesInIntegrator() {
