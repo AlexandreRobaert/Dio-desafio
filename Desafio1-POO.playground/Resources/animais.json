@@ -1,0 +1,29 @@
+[
+    {
+        "nome": "Cavalo",
+        "tipo": "terrestre",
+        "tamanho": {
+            "largura": 2.1,
+            "altura": 1.8
+        },
+        "som": "Som de Cavalo!"
+    },
+    {
+        "nome": "Sapo",
+        "tipo": "anfibio",
+        "tamanho": {
+            "largura": 0.1,
+            "altura": 0.05
+        },
+        "som": "Som de Sapo !"
+    },
+    {
+        "nome": "Pássaro",
+        "tipo": "aereo",
+        "tamanho": {
+            "largura": 0.1,
+            "altura": 0.05
+        },
+        "som": "Canto de pássaro"
+    }
+]
